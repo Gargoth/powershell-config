@@ -60,6 +60,18 @@ function Cd-With-Default {
     }
 }
 
+function Goto-PowerShellConfig {
+    Set-Location ~/Documents/WindowsPowerShell
+}
+
+function Goto-NvimConfig {
+    Set-Location ~/AppData/Local/nvim
+}
+
+function Goto-WSLHome {
+    Set-Location \\wsl.localhost\Ubuntu-22.04\home\gargoth
+}
+
 function Fish-Execute {
     param (
         $Command
@@ -73,6 +85,9 @@ Set-Alias -Name la -Value Fish-La
 Set-Alias -Name ll -Value Fish-Ll
 Set-Alias -Name lt -Value Fish-Lt
 Set-Alias -Name ldir -Value Fish-Ldir
-Set-Alias -Name cd -Value Cd-With-Default -Option AllScope
 Set-Alias -Name .. -Value Cd-Up
+Set-Alias -Name cd -Value Cd-With-Default -Option AllScope
+Set-Alias -Name psconf -Value Goto-PowerShellConfig
+Set-Alias -Name nvimconf -Value Goto-NvimConfig
+Set-Alias -Name lnx -Value Goto-WSLHome
 Set-Alias -Name fish -Value Fish-Execute
