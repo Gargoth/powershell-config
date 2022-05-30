@@ -1,31 +1,21 @@
+Import-Module -Name Terminal-Icons
+
 function Prompt {
     $promptString = "PS " + $(Get-Location) + ">"
     Write-Host $promptString -NoNewline -ForegroundColor Yellow
     return " "
 }
 
-function Fish-Ls {
-    param (
-        $Directory
-    )
-
-    wsl -e fish -c "ls $Directory"
+function Ls-Bashtype {
+    Get-ChildItem $args -Exclude .* | Format-Wide -AutoSize
 }
 
-function Fish-La {
-    param (
-        $Directory
-    )
-
-    wsl -e fish -c "la $Directory"
+function La-Bashtype {
+    Get-ChildItem $args -Force | Format-Wide -AutoSize
 }
 
-function Fish-Ll {
-    param (
-        $Directory
-    )
-
-    wsl -e fish -c "ll $Directory"
+function Ldir-Bashtype {
+    Get-ChildItem $args -Exclude .* -Attributes Directory -Force | Format-Wide -AutoSize
 }
 
 function Fish-Lt {
@@ -34,14 +24,6 @@ function Fish-Lt {
     )
 
     wsl -e fish -c "lt $Directory"
-}
-
-function Fish-Ldir {
-    param (
-        $Directory
-    )
-
-    wsl -e fish -c "ldir $Directory"
 }
 
 function Cd-Up {
@@ -80,11 +62,10 @@ function Fish-Execute {
     wsl -e fish -c $Command
 }
 
-Set-Alias -Name ls -Value Fish-Ls -Option AllScope
-Set-Alias -Name la -Value Fish-La
-Set-Alias -Name ll -Value Fish-Ll
+Set-Alias -Name ls -Value Ls-Bashtype -Option AllScope
+Set-Alias -Name la -Value La-Bashtype
+Set-Alias -Name ldir -Value Ldir-Bashtype
 Set-Alias -Name lt -Value Fish-Lt
-Set-Alias -Name ldir -Value Fish-Ldir
 Set-Alias -Name .. -Value Cd-Up
 Set-Alias -Name cd -Value Cd-With-Default -Option AllScope
 Set-Alias -Name psconf -Value Goto-PowerShellConfig
